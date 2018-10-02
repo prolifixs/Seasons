@@ -3,6 +3,7 @@ Include/
 Scripts/
 tcl/
 Design/
+src/seasons/settings.py
 pip-selfcheck.json
 
 
