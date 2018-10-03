@@ -13,6 +13,6 @@ urlpatterns = [
     url(r'^$', posts_list),
     url(r'^create/$', posts_create),#url(r'^$', "<appname>.view_module.<function_name>")
     url(r'^(?P<id>\d+)/$', posts_detail, name='detail'),
-    url(r'^update/$', posts_update),
+    url(r'^(?P<id>\d+)/edit/$', posts_update, name='update'),
     url(r'^delete/$', posts_delete),
 ]
