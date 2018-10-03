@@ -3,7 +3,6 @@ Include/
 Scripts/
 tcl/
 Design/
-settings.py
 pip-selfcheck.json
 
 
