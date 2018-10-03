@@ -1,16 +1,18 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Post
 # Create your views here.  C R U D - Create, retrieve, update, delete
 
 def posts_create(request): #As create
 	return HttpResponse("<h1>Create</h1>")
 
-def posts_detail(request): #As retrieve
+def posts_detail(request, id): #As retrieve
+	instance = get_object_or_404(Post, id=id)
 	context = {
-	"title" : "Detail"
+	"title" : instance.title,
+	"instance": instance
 	}
-	return render(request, "index.html", context)
+	return render(request, "posts_detail.html", context)
 
 def posts_list(request): #As retrieve
 	queryset = Post.objects.all()#Query for retrieving data from database
