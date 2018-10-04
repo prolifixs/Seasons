@@ -6,5 +6,6 @@ class PostForm(forms.ModelForm):#To be used in create viev
 		model = Post
 		fields = [
 			"title",
-			"context"
+			"context",
+			"image"
 		]

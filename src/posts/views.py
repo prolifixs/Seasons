@@ -9,7 +9,7 @@ from .models import Post
 # Create your views here.  C R U D - Create, retrieve, update, delete
 
 def posts_create(request): #As create
-	form = PostForm(request.POST or None)
+	form = PostForm(request.POST or None, request.FILES or None)
 	if form.is_valid():
 		instance = form.save(commit=False)
 		instance.save()
@@ -51,7 +51,7 @@ def posts_list(request): #As retrieve
 
 def posts_update(request, id=None): #As update
 	instance = get_object_or_404(Post, id=id)
-	form = PostForm(request.POST or None, instance=instance)
+	form = PostForm(request.POST or None, request.FILES or None, instance=instance)
 	if form.is_valid():
 		instance = form.save(commit=False)
 		instance.save()
