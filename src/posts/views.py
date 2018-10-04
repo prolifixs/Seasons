@@ -1,5 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.shortcuts import render
 from .forms import PostForm
 from django.contrib import messages
 from .models import Post
@@ -27,10 +29,22 @@ def posts_detail(request, id): #As retrieve
 	return render(request, "posts_detail.html", context)
 
 def posts_list(request): #As retrieve
-	queryset = Post.objects.all()#Query for retrieving data from database
+	queryset_list = Post.objects.all()#.order_by("-timestamp")#Query for retrieving data from database
+	paginator = Paginator(queryset_list, 12) # Show 25 contacts per page
+	page_request_var = "page"
+	page = request.GET.get(page_request_var)
+	try:
+		queryset = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		queryset = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		queryset = paginator.page(paginator.num_pages)
 	context = {
 	"object_lists": queryset,
-	"title" : "List"
+	"title" : "List",
+	"page_request_var" : page_request_var
 	}
 	return render(request, "post_list.html", context)
 	#return HttpResponse("<h1>Lists</h1>")
